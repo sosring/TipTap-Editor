@@ -6,8 +6,14 @@ const content = ref("");
 </script>
 
 <template>
-  <v-container id="app">
+  <v-container>
     <Editor v-model="content" :max-limit="280" />
+  </v-container>
+
+  <v-container>
+    <code>
+      {{ content }}
+    </code>
   </v-container>
 </template>
 

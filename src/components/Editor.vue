@@ -359,8 +359,17 @@ function onHeadingClick(index: number) {
 
   .ProseMirror {
     min-height: 300px;
-    padding: 0 1rem;
+    overflow-y: auto;
     outline: none;
+
+    a {
+      cursor: pointer;
+    }
+
+    ol li,
+    ul li {
+      margin: 0 1rem;
+    }
 
     > p:first-child {
       margin-top: 0.5em;
