@@ -17,12 +17,12 @@ import FontFamily from "@tiptap/extension-font-family";
 import Image from "@tiptap/extension-image";
 
 const props = defineProps<{
-  modelValue: string;
+  modelValue: string | any;
   maxLimit: number;
 }>();
 const emits = defineEmits(["update:modelValue"]);
 
-const editor = useEditor({
+const editor: any = useEditor({
   content: props.modelValue,
   extensions: [
     StarterKit,
@@ -141,7 +141,7 @@ onBeforeUnmount(() => {
   editor.value.destroy();
 });
 
-function onActionClick(slug: string, option: string | null) {
+function onActionClick(slug: string, option: string | undefined) {
   const vm = editor.value.chain().focus();
   const actionTriggers = {
     bold: () => vm.toggleBold().run(),
@@ -171,7 +171,7 @@ function onActionClick(slug: string, option: string | null) {
     image: () => addImage(),
   };
 
-  actionTriggers[slug]();
+  (actionTriggers[slug] as () => void) ();
 }
 
 function setLink() {
