@@ -281,9 +281,7 @@ function onHeadingClick(index: number) {
           </v-list-item>
         </v-list>
       </v-menu>
-    </v-card-item>
 
-    <v-card-text>
       <v-color-picker
         v-if="showColorPicker"
         class="ma-2"
@@ -297,7 +295,9 @@ function onHeadingClick(index: number) {
         @update:model-value="updateColorPicker"
         :model-value="editor.getAttributes(currentColorFeature).color"
       ></v-color-picker>
+    </v-card-item>
 
+    <v-card-text class="px-2">
       <editor-content v-model:editor="editor" />
 
       <div v-if="editor" class="footer">
@@ -313,17 +313,12 @@ function onHeadingClick(index: number) {
 </template>
 
 <style lang="scss">
-.v-color-picker {
-  z-index: 1 !important;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 #text-editor {
   border: 2px solid #808080;
   position: relative;
 
   img {
+    margin-top: 1.5rem;
     max-height: 300px !important;
     max-width: 200px !important;
   }
@@ -352,10 +347,20 @@ function onHeadingClick(index: number) {
     }
   }
 
+  .v-color-picker {
+    z-index: 1 !important;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .v-card-text {
+    position: relative;
+  }
+
   .ProseMirror {
     min-height: 300px;
+    padding: 0 1rem;
     outline: none;
-    padding: 0.5rem;
 
     > p:first-child {
       margin-top: 0.5em;
