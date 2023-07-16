@@ -123,8 +123,8 @@ const wordsCount = computed(() => {
 });
 
 const limitWarning = computed(() => {
-  const isCloseToMax = charactersCount.value >= props.maxLimit.value - 20;
-  const isMax = charactersCount.value === props.maxLimit.value;
+  const isCloseToMax = charactersCount.value >= props.maxLimit - 20;
+  const isMax = charactersCount.value === props.maxLimit;
 
   if (isCloseToMax && !isMax) return "warning";
   if (isMax) return "danger";
@@ -141,7 +141,7 @@ onBeforeUnmount(() => {
   editor.value.destroy();
 });
 
-function onActionClick(slug: string, option = null) {
+function onActionClick(slug: string, option: string | null) {
   const vm = editor.value.chain().focus();
   const actionTriggers = {
     bold: () => vm.toggleBold().run(),
@@ -239,6 +239,7 @@ function onHeadingClick(index: number) {
 
       <v-btn
         flat
+        v-bind="props"
         v-for="({ slug, option, active, icon }, index) in textActions"
         :key="index"
         :class="{ 'bg-black': editor.isActive(active) }"
@@ -246,6 +247,7 @@ function onHeadingClick(index: number) {
         rounded="sm"
         @click="onActionClick(slug, option)"
         :icon="`mdi-${icon}`"
+        :title="icon"
         size="x-small"
       >
       </v-btn>
@@ -352,9 +354,8 @@ function onHeadingClick(index: number) {
 
   .ProseMirror {
     min-height: 300px;
-    overflow-y: auto;
-    padding: 0.5rem;
     outline: none;
+    padding: 0.5rem;
 
     > p:first-child {
       margin-top: 0.5em;
